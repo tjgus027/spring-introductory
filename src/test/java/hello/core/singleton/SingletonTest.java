@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class SingletonTest {
     @Test
     @DisplayName("스프링 없는 순수한 DI 컨테이너")
-    void pureContainer(){
+    void pureContainer() {
         AppConfig appConfig = new AppConfig();
         //1. 조회: 호출할 때마다 객체 생성
         MemberService memberService1 = appConfig.memberService();
@@ -23,5 +23,18 @@ public class SingletonTest {
 
         // memberService1 != memberService2
         Assertions.assertThat(memberService1).isNotSameAs(memberService2);
+    }
+
+    @Test
+    @DisplayName("싱글톤 패턴을 적용한 객체 사용")
+    void SingtonServiceTest(){
+        SingletonService singletonService1 = SingletonService.getInstance();
+        SingletonService singletonService2 = SingletonService.getInstance();
+
+        System.out.println("singletonService1 = " + singletonService1);
+        System.out.println("singletonService2 = " + singletonService2);
+
+        Assertions.assertThat(singletonService1).isSameAs(singletonService2);
+        //same은 == // equals는 자바의 equals를 비교
     }
 }
